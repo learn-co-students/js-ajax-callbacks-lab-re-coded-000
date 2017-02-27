@@ -3,11 +3,11 @@ function displayError() {
 }
 function searchRepositories() {
   const searchTerms = $('#searchTerms').val()
-  $.get(`https://api.github.com/search/repositories?q=${searchTerms}`, data => {
+  $.get(`https://api.github.com/search/repositories?q=${searchTerms}`, function(data){
       const template = Handlebars.compile($('#results-template').html())
       $('#results').html(template(data))
     }).fail(error => {
-      displayError()
+      displayError();
     })
 }
 

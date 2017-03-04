@@ -1,39 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Ajax Lab</title>
+<head>
+  <title>Ajax Lab</title>
 
-    <style>
-      .flexbox-container {
-        display: -ms-flex;
-        display: -webkit-flex;
-        display: flex;
-      }
-      .flexbox-container > div {
-        width: 50%;
-        padding: 10px;
-      }
-      .flexbox-container > div:first-child {
-        margin-right: 20px;
-      }
-    </style>
-  </head>
-  <body>
-    <main id="main">
-      <div id="errors"></div>
-    </main>
-    <div class="flexbox-container">
-      <div>
-        <h3>Repositories</h3>
-        <div id="results"></div>
-      </div>
-      <div>
-        <h3>Details</h3>
-        <div id="details"></div>
-      </div>
+  <style>
+    .flexbox-container {
+      display: -ms-flex;
+      display: -webkit-flex;
+      display: flex;
+    }
+    .flexbox-container > div {
+      width: 50%;
+      padding: 10px;
+    }
+    .flexbox-container > div:first-child {
+      margin-right: 20px;
+    }
+  </style>
+</head>
+<body>
+  <main id="main">
+    <input type="text" id="searchTerms">
+    <a href="#" onclick="searchRepositories()">
+      Search Repositories
+    </a>
+    <div id="errors"></div>
+  </main>
+  <div class="flexbox-container">
+    <div>
+      <h3>Repositories</h3>
+      <div id="results"></div>
     </div>
-    <script src="jquery-3.1.0.min.js"></script>
-    <script src="handlebars.js"></script>
-    <script src="index.js"></script>
-  </body>
+    <div>
+      <h3>Details</h3>
+      <div id="details"></div>
+    </div>
+  </div>
+  <script type="text/x-handlebars-template" id="user-details-partial">
+    <h4><a href="{{url}}"> {{login}}</a></h4>
+    <img src={{avatar-url}}>
+  </script>
+  <script id='results-template' type="text=x-handlebars-template">
+    {{#each items}}
+    <h4> <a href="{{html_url}}" >{{name}}</a> </h4>
+    <a href='#' data-repository={{name}} data-owner={{owner.login}} onclick='showCommits(this)' >Show Commits </a>
+    <br>
+    {{description}}
+    <div>{{> userDetails owner}}</div>
+    {{/each}}
+  </script>
+  <script id='commit-template' type="text/x-handlebars-template ">
+  {{#each this}}
+  <h5>{{sha}}</h5>
+  <p>{{commit.message}}</p>
+  <div>{{> userDetails author}}</div>
+  {{/each}}
+  </script>
+  <script src="jquery-3.1.0.min.js"></script>
+  <script src="handlebars.js"></script>
+  <script src="index.js"></script>
+</body>
 </html>

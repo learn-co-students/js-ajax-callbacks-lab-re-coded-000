@@ -21,7 +21,7 @@ function showCommits(el) {
     displayError()
   })
 }
-
+// function
 function handlebarsSetup() {
   //put any handlebars setup in here
   Handlebars.registerPartial("userDetails", $("#user-details-partial").html())
